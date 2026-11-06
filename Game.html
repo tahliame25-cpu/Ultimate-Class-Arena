@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ultimate Class Arena: No-Equipment Edition 🏆</title>
+
+    <style>
+        /* ==================== STYLES & NEON CYBER TV THEME ==================== */
+        :root {
+            --bg-main: #040711;
+            --bg-card: rgba(15, 23, 42, 0.94);
+            --bg-panel: #0f172a;
+            --cyan: #00f0ff;
+            --pink: #ff007f;
+            --purple: #a855f7;
+            --yellow: #ffea00;
+            --green: #00ff66;
+            --red: #ef4444;
+            --orange: #f97316;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Typography & Glow Effects */
+        .neon-title { text-shadow: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(168, 85, 247, 0.4); }
+        .neon-text-cyan { color: var(--cyan); text-shadow: 0 0 12px rgba(0, 240, 255, 0.6); }
+        .neon-text-pink { color: var(--pink); text-shadow: 0 0 12px rgba(255, 0, 127, 0.6); }
+        .neon-text-yellow { color: var(--yellow); text-shadow: 0 0 12px rgba(255, 234, 0, 0.6); }
+        .neon-text-green { color: var(--green); text-shadow: 0 0 12px rgba(0, 255, 102, 0.6); }
+        .neon-text-purple { color: var(--purple); text-shadow: 0 0 12px rgba(168, 85, 247, 0.6); }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+        /* Action Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            color: #000;
+            font-weight: 900;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            transition: transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            transform: scale(1.03);
+            filter: brightness(1.15);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+        }
+        .btn:active { transform: scale(0.97); }
+
+        .btn-pink {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+        }
+        .btn-yellow {
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 234, 0, 0.3);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+        }
+        .btn-red {
+            background: linear-gradient(135deg, #ef4444, #991b1b);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+        .btn-purple {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: #fff;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .btn-dark {
+            background: #1e293b;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+        }
+        .btn-dark:hover { background: #334155; }
+
+        /* Grids */
+        .duo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        /* Large TV Scale Mode */
+        body.tv-mode h1 { font-size: 3.6rem !important; }
+        body.tv-mode h2 { font-size: 3rem !important; }
+        body.tv-mode .timer-text { font-size: 4.8rem !important; }
+        body.tv-mode .btn { padding: 18px 36px !important; font-size: 1.3rem !important; }
+
+        /* Animations */
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.03); }
+        }
+        .animate-pulse { animation: pulse-fast 1s infinite; }
+
+        @keyframes siren-flash {
+            0%, 100% { background-color: rgba(239, 68, 68, 0.6); }
+            50% { background-color: rgba(0, 0, 0, 0.95); }
+        }
+        .siren-active { animation: siren-flash 0.4s infinite; }
+
+        @keyframes wobble-distraction {
+            0% { transform: rotate(0deg) scale(1); background-color: rgba(255,0,127,0.3); }
+            25% { transform: rotate(-3deg) scale(1.02); background-color: rgba(0,240,255,0.3); }
+            50% { transform: rotate(3deg) scale(0.98); background-color: rgba(255,234,0,0.3); }
+            75% { transform: rotate(-2deg) scale(1.03); background-color: rgba(168,85,247,0.3); }
+            100% { transform: rotate(0deg) scale(1); background-color: rgba(255,0,127,0.3); }
+        }
+        .distraction-mode { animation: wobble-distraction 0.3s infinite; }
+
+        /* Overlays & Modals */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(14px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .hidden { display: none !important; }
+
+        /* Inline SVG Icon Wrapper */
+        .icon {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .icon-lg { width: 44px; height: 44px; }
+    </style>
+</head>
+<body>
+
+    <!-- CONFETTI OVERLAY CANVAS -->
+    <canvas id="confettiCanvas" style="position:fixed; inset:0; pointer-events:none; z-index:90;"></canvas>
+
+    <!-- RED ALERT SIREN OVERLAY -->
+    <div id="sirenOverlay" class="modal-backdrop hidden">
+        <div style="text-align: center; padding: 40px; border-radius: 30px; border: 4px solid var(--red); background: #000; box-shadow: 0 0 100px rgba(239,68,68,0.9);" class="animate-pulse">
+            <svg class="icon icon-lg" style="fill: var(--red); width: 80px; height: 80px; margin-bottom: 16px;" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+            <h1 style="font-size: 3.2rem; color: var(--red); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">ELIMINATION ALERT!</h1>
+            <p id="sirenText" style="font-size: 1.8rem; color: var(--yellow); font-weight: 700;">DUO ELIMINATED FROM ARENA</p>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="glass-card hidden" style="position: fixed; top: 80px; right: 20px; z-index: 110; padding: 16px 24px; border-left: 6px solid var(--cyan); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <svg class="icon" style="fill: var(--cyan);" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span id="toastMsg" style="font-weight: 700; font-size: 1rem;">Notification</span>
+        </div>
+    </div>
+
+    <!-- PRE-GAME PHYSICAL CHALLENGE INSTRUCTION MODAL -->
+    <div id="instructionModal" class="modal-backdrop hidden">
+        <div class="glass-card" style="max-width: 680px; width: 100%; padding: 32px; border: 2px solid var(--cyan); box-shadow: 0 0 60px rgba(0,240,255,0.3);">
+            <div class="flex-between" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                <div>
+                    <span id="modalLevelBadge" style="background: rgba(0,240,255,0.2); color: var(--cyan); font-weight: 900; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase;">Level 1</span>
+                    <h3 id="modalTitle" style="font-size: 2.2rem; font-weight: 900; margin-top: 6px;">SYNCHRONIZED POSE MATCH</h3>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+                <div style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: 14px; margin-bottom: 14px; border-left: 4px solid var(--green);">
+                    <h4 style="color: var(--green); font-size: 0.85rem; text-transform: uppercase; font-weight: 800; margin-bottom: 4px;">Equipment Needed</h4>
+                    <p id="modalSetup" style="font-size: 1.05rem; color: var(--green); font-weight: 800;">NONE! 100% Physical Body Game</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: 14px; margin-bottom: 16px;">
+                    <h4 style="color: var(--yellow); font-size: 0.8rem; text-transform: uppercase; font-weight: 800; margin-bottom: 6px;">Physical Rules</h4>
+                    <p id="modalRules" style="font-size: 1.05rem; line-height: 1.5; color: #e2e8f0;">Duo stands back-to-back. On count of 3, turn around and strike a pose. Must match without speaking!</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: center;">
+                    <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 12px;">
+                        <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Timer Limit</span>
+                        <div id="modalTimer" style="font-size: 1.4rem; font-weight: 900; color: var(--cyan);">30 Seconds</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 12px;">
+                        <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Reward</span>
+                        <div id="modalReward" style="font-size: 1.4rem; font-weight: 900; color: var(--yellow);">+20 Points</div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="closeInstructionModal(true)" class="btn" style="width: 100%; padding: 18px; font-size: 1.2rem;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                START PHYSICAL CHALLENGE NOW
+            </button>
+        </div>
+    </div>
+
+    <!-- TOP BROADCAST HEADER -->
+    <header class="glass-card" style="border-radius: 0; border-bottom: 1px solid var(--border-color); padding: 14px 24px;">
+        <div class="flex-between">
+            <div class="flex-center" style="gap: 14px; cursor: pointer;" onclick="switchView(0)">
+                <div class="flex-center" style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--pink)); box-shadow: 0 0 20px rgba(0,240,255,0.4);">
+                    <svg class="icon" style="fill: #000; width: 26px; height: 26px;" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+                </div>
+                <div>
+                    <h1 class="neon-title" style="font-size: 1.6rem; font-weight: 900; letter-spacing: 1px;">CLASS ARENA<span style="color: var(--cyan);"> 🤸 NO-EQUIPMENT EDITION</span></h1>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Host TV Broadcast • 100% Zero-Equipment Games</p>
+                </div>
+            </div>
+
+            <div class="flex-center" style="gap: 10px;">
+                <button onclick="toggleTVMode()" class="btn btn-dark" style="padding: 10px 16px; font-size: 0.85rem;" title="Toggle Big TV Font Scale">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
+                    <span>TV Scale</span>
+                </button>
+                <button id="soundToggleBtn" onclick="toggleAudio()" class="btn btn-dark" style="padding: 10px 16px; font-size: 0.85rem;">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                </button>
+                <button onclick="toggleHostDrawer()" class="btn btn-red" style="padding: 10px 18px; font-size: 0.85rem;">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4v2h6V9h-6z"/></svg>
+                    <span>Host Controls</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="container" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+
+        <!-- ==================== VIEW 0: MAIN ARENA & DUO RANDOMIZER ==================== -->
+        <section id="view-0" style="display: flex; flex-direction: column; gap: 24px;">
+            <div style="text-align: center;">
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 8px;">20 PLAYER <span class="neon-text-cyan">DUO ARENA</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin: 0 auto;">
+                    No props or setup required! Click below to shuffle active players into new Duos before each level.
+                </p>
+            </div>
+
+            <!-- Duo Randomizer Header -->
+            <div class="flex-center" style="gap: 14px; flex-wrap: wrap;">
+                <button onclick="randomizeDuosForLevel()" class="btn btn-pink" style="padding: 16px 28px; font-size: 1.1rem;">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                    🎲 RANDOMIZE NEW DUOS FOR THIS LEVEL
+                </button>
+            </div>
+
+            <!-- Active Level Duos Cards -->
+            <div id="duosGrid" class="duo-grid">
+                <!-- Dynamically Populated -->
+            </div>
+
+            <!-- Level Select Navigation Bar -->
+            <div class="glass-card" style="padding: 24px; border: 1px solid var(--border-color);">
+                <h3 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; text-align: center; margin-bottom: 16px;">Select & Launch Equipment-Free Level</h3>
+                <div class="level-grid">
+                    <button onclick="openInstructionModal(1)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(0,240,255,0.4);">
+                        <span style="font-size: 0.7rem; color: var(--cyan);">LEVEL 1</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Sync Pose Match</span>
+                    </button>
+                    <button onclick="openInstructionModal(2)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(255,0,127,0.4);">
+                        <span style="font-size: 0.7rem; color: var(--pink);">LEVEL 2</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Human Sculpture</span>
+                    </button>
+                    <button onclick="openInstructionModal(3)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(255,234,0,0.4);">
+                        <span style="font-size: 0.7rem; color: var(--yellow);">LEVEL 3</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Back-to-Back Stand</span>
+                    </button>
+                    <button onclick="openInstructionModal(4)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(168,85,247,0.4);">
+                        <span style="font-size: 0.7rem; color: var(--purple);">LEVEL 4</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Balance Staring Contest</span>
+                    </button>
+                    <button onclick="openInstructionModal(5)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(239,68,68,0.4);">
+                        <span style="font-size: 0.7rem; color: var(--red);">LEVEL 5</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Rapid Motion Charades</span>
+                    </button>
+                    <button onclick="openInstructionModal(6)" class="btn btn-dark" style="flex-direction: column; padding: 16px; border-color: rgba(255,215,0,0.6);">
+                        <span style="font-size: 0.7rem; color: #ffd700;">LEVEL 6</span>
+                        <span style="font-weight: 900; font-size: 0.95rem; margin-top: 4px;">Red Light Sprint</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 1: SYNCHRONIZED POSE MATCH ==================== -->
+        <section id="view-1" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(0,240,255,0.2); color: var(--cyan); padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Level 1 • Body Sync</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">SYNCHRONIZED POSE MATCH 🧍‍♂️🧍‍♀️</h2>
+            </div>
+
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid var(--cyan); box-shadow: 0 0 50px rgba(0,240,255,0.2);">
+                <div class="flex-between" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+                    <span>Goal: Turn around on 3 & match exact pose!</span>
+                    <span id="l1Timer" class="neon-text-yellow timer-text" style="font-size: 3.5rem; font-weight: 900;">30s</span>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.5); padding: 24px; border-radius: 20px; margin-bottom: 24px;">
+                    <span style="font-size: 0.8rem; color: var(--cyan); font-weight: 800; text-transform: uppercase;">Current Pose Prompt</span>
+                    <div id="l1PosePrompt" class="neon-text-cyan" style="font-size: 3rem; font-weight: 900; margin-top: 8px;">
+                        SUPERHERO FLYING 🦸‍♂️
+                    </div>
+                </div>
+
+                <div class="flex-center" style="gap: 12px; flex-wrap: wrap;">
+                    <button onclick="nextL1Prompt()" class="btn btn-cyan">Next Pose Prompt 🎲</button>
+                    <button onclick="triggerConfetti()" class="btn btn-green">Match Perfect! (+20) 🎉</button>
+                    <button onclick="startAutoTimer(30, 'l1Timer')" class="btn btn-dark">Restart 30s Timer ⏱️</button>
+                    <button onclick="switchView(0)" class="btn btn-dark">Return to Arena</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 2: HUMAN SCULPTURE CHARADES ==================== -->
+        <section id="view-2" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(255,0,127,0.2); color: var(--pink); padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Level 2 • Physical Molding</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">HUMAN SCULPTURE CHARADES 🗿</h2>
+            </div>
+
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid var(--pink); box-shadow: 0 0 50px rgba(255,0,127,0.2);">
+                <div class="flex-between" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 16px;">
+                    <span>Player A molds Player B like a mannequin statue</span>
+                    <span id="l2Timer" class="neon-text-yellow timer-text" style="font-size: 3.5rem; font-weight: 900;">45s</span>
+                </div>
+
+                <div id="l2Prompt" class="neon-text-pink" style="font-size: 2.8rem; font-weight: 900; margin: 24px 0; letter-spacing: 1px;">
+                    BASKETBALL SLAM DUNK 🏀
+                </div>
+
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">No speaking, no sound effects, no pointing at items in the room!</p>
+
+                <div class="flex-center" style="gap: 12px; flex-wrap: wrap;">
+                    <button onclick="nextL2Prompt()" class="btn btn-pink">Next Statue Prompt 🎲</button>
+                    <button onclick="triggerConfetti()" class="btn btn-green">Guessed Correctly! 🎉</button>
+                    <button onclick="startAutoTimer(45, 'l2Timer')" class="btn btn-dark">Restart 45s Timer ⏱️</button>
+                    <button onclick="switchView(0)" class="btn btn-dark">Return to Arena</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 3: BACK-TO-BACK STAND UP CHALLENGE ==================== -->
+        <section id="view-3" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(255,234,0,0.2); color: var(--yellow); padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Level 3 • Core & Balance</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">BACK-TO-BACK STAND UP 🧘‍♂️🧘‍♀️</h2>
+            </div>
+
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid var(--yellow); box-shadow: 0 0 50px rgba(255,234,0,0.2);">
+                <div class="flex-between" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 16px;">
+                    <span>Goal: Stand up upright without hands touching floor</span>
+                    <span id="l3Timer" class="neon-text-cyan timer-text" style="font-size: 3.5rem; font-weight: 900;">40s</span>
+                </div>
+
+                <div style="background: rgba(239,68,68,0.15); border: 2px solid var(--red); padding: 20px; border-radius: 16px; margin-bottom: 24px;">
+                    <h3 style="color: var(--red); font-size: 1.6rem; font-weight: 900; margin-bottom: 6px;">CRITICAL RULE: NO HANDS TOUCHING THE FLOOR!</h3>
+                    <p style="color: #cbd5e1; font-size: 1rem;">Sit on floor back-to-back, link elbows tightly, push back against each other, and stand up!</p>
+                </div>
+
+                <div class="flex-center" style="gap: 12px; flex-wrap: wrap;">
+                    <button onclick="stopAutoTimer(); sound.playSuccess(); triggerConfetti();" class="btn btn-green">Stood Up Successfully! 🎉</button>
+                    <button onclick="startAutoTimer(40, 'l3Timer')" class="btn btn-yellow">Restart 40s Timer ⏱️</button>
+                    <button onclick="switchView(0)" class="btn btn-dark">Return to Arena</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 4: FREEZE & BALANCE STARING CONTEST ==================== -->
+        <section id="view-4" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(168,85,247,0.2); color: var(--purple); padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Level 4 • Composure Test</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">BALANCE STARING CONTEST 👁️‍🗨️</h2>
+            </div>
+
+            <div id="l4Card" class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid var(--purple); box-shadow: 0 0 50px rgba(168,85,247,0.2); transition: background 0.2s ease;">
+                <div class="flex-between" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 16px;">
+                    <span>Balance on 1 foot & stare into partner's eyes</span>
+                    <span id="l4Timer" class="neon-text-yellow timer-text" style="font-size: 3.5rem; font-weight: 900;">30s</span>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 16px; margin-bottom: 24px;">
+                    <h3 style="color: var(--purple); font-size: 1.5rem; font-weight: 900; margin-bottom: 6px;">NO LAUGHING • NO BLINKING • NO FOOT TOUCH</h3>
+                    <p style="color: #cbd5e1; font-size: 0.95rem;">Host can toggle TV screen distraction mode below to test focus!</p>
+                </div>
+
+                <div class="flex-center" style="gap: 12px; flex-wrap: wrap;">
+                    <button id="distractionBtn" onclick="toggleDistractionMode()" class="btn btn-pink">🤪 TOGGLE TV DISTRACTION FX</button>
+                    <button onclick="stopAutoTimer(); sound.playSuccess(); triggerConfetti();" class="btn btn-green">Held Focus & Balance! 🎉</button>
+                    <button onclick="startAutoTimer(30, 'l4Timer')" class="btn btn-purple">Restart 30s Timer ⏱️</button>
+                    <button onclick="switchView(0)" class="btn btn-dark">Return to Arena</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 5: RAPID MOTION CHARADES ==================== -->
+        <section id="view-5" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(239,68,68,0.2); color: var(--red); padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Level 5 • Fast Motion</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">RAPID MOTION CHARADES ⚡</h2>
+            </div>
+
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid var(--red); box-shadow: 0 0 50px rgba(239,68,68,0.2);">
+                <div class="flex-between" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+                    <span>Full body action verb acting (0 sound allowed)</span>
+                    <span id="l5Timer" class="neon-text-yellow timer-text" style="font-size: 3.5rem; font-weight: 900;">45s</span>
+                </div>
+
+                <div id="l5VerbPrompt" class="neon-text-yellow" style="font-size: 3rem; font-weight: 900; margin: 24px 0; letter-spacing: 1px;">
+                    ESCAPING A SWARM OF ANGRY BEES 🐝
+                </div>
+
+                <div class="flex-center" style="gap: 12px; flex-wrap: wrap;">
+                    <button onclick="nextL5Prompt()" class="btn btn-red">Next Action Verb 🎲</button>
+                    <button onclick="stopAutoTimer(); sound.playSuccess(); triggerConfetti();" class="btn btn-green">Action Solved! 🎉</button>
+                    <button onclick="startAutoTimer(45, 'l5Timer')" class="btn btn-yellow">Restart Timer ⏱️</button>
+                    <button onclick="switchView(0)" class="btn btn-dark">Return to Arena</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LEVEL 6: GRAND FINALE - RED LIGHT GREEN LIGHT ==================== -->
+        <section id="view-6" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="background: rgba(255,215,0,0.2); color: #ffd700; padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;" class="animate-pulse">Championship Finale</span>
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-top: 6px;">RED LIGHT GREEN LIGHT SPRINT & POSE 🚦</h2>
+            </div>
+
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%; padding: 36px; text-align: center; border: 2px solid #ffd700; box-shadow: 0 0 50px rgba(255,215,0,0.2);">
+                <div class="flex-between" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
+                    <span>Sprint on Green • Freeze in Pose on Red!</span>
+                    <span id="l6Timer" class="neon-text-yellow timer-text" style="font-size: 3.5rem; font-weight: 900;">60s</span>
+                </div>
+
+                <div id="lightDisplay" style="padding: 30px; border-radius: 20px; background: rgba(0,255,102,0.2); border: 4px solid var(--green); margin-bottom: 24px;">
+                    <h2 id="lightText" style="font-size: 3.5rem; font-weight: 900; color: var(--green);">GREEN LIGHT! SPRINT! 🟢</h2>
+                    <p id="lightPosePrompt" style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-top: 8px;">(Prepare to freeze when red light flashes)</p>
+                </div>
+
+                <div class="flex-center" style="gap: 14px; flex-wrap: wrap;">
+                    <button onclick="toggleRedLight(true)" class="btn btn-green" style="padding: 16px 28px;">GREEN LIGHT 🟢</button>
+                    <button onclick="toggleRedLight(false)" class="btn btn-red" style="padding: 16px 28px;">RED LIGHT 🔴</button>
+                    <button onclick="triggerConfetti()" class="btn" style="background: linear-gradient(135deg, #ffd700, #f59e0b); color: #000;">Crown Arena Champion 🏆</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- HOST CONTROL DECK DRAWER -->
+    <div id="hostDrawer" class="glass-card" style="position: fixed; top: 0; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 120; border-radius: 0; border-left: 2px solid var(--red); padding: 24px; display: flex; flex-direction: column; gap: 20px; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; box-shadow: -10px 0 40px rgba(0,0,0,0.8);">
+        <div class="flex-between" style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px;">
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--red); display: flex; align-items: center; gap: 8px;">
+                <svg class="icon" style="fill: var(--red);" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4v2h6V9h-6z"/></svg>
+                HOST CONTROL DECK
+            </h3>
+            <button onclick="toggleHostDrawer()" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+
+        <!-- Triggers -->
+        <div>
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Sound & FX Triggers</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button onclick="triggerRedSiren()" class="btn btn-red" style="padding: 10px; font-size: 0.8rem;">🚨 Red Siren</button>
+                <button onclick="triggerConfetti()" class="btn btn-yellow" style="padding: 10px; font-size: 0.8rem;">🎉 Confetti</button>
+                <button onclick="sound.playAirhorn()" class="btn btn-pink" style="padding: 10px; font-size: 0.8rem;">📣 Airhorn</button>
+                <button onclick="sound.playBuzzer()" class="btn btn-dark" style="padding: 10px; font-size: 0.8rem;">❌ Buzzer</button>
+            </div>
+        </div>
+
+        <!-- Score & Elimination Panel -->
+        <div>
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Score Adjuster & Elimination</label>
+            <select id="hostDuoSelect" style="width: 100%; background: #020617; border: 1px solid var(--border-color); color: #fff; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px;">
+                <!-- Dynamically populated -->
+            </select>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+                <button onclick="adjustDuoScore(20)" class="btn" style="padding: 8px; font-size: 0.75rem; background: rgba(0,255,102,0.2); color: var(--green); border: 1px solid rgba(0,255,102,0.4);">+20 Pts</button>
+                <button onclick="adjustDuoScore(-10)" class="btn" style="padding: 8px; font-size: 0.75rem; background: rgba(239,68,68,0.2); color: var(--red); border: 1px solid rgba(239,68,68,0.4);">-10 Pts</button>
+                <button onclick="toggleDuoElimination()" class="btn btn-pink" style="padding: 8px; font-size: 0.75rem;">Eliminate</button>
+            </div>
+        </div>
+
+        <!-- Roster Leaderboard -->
+        <div style="flex-grow: 1; display: flex; flex-direction: column;">
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Current Leaderboard</label>
+            <div id="hostLeaderboard" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; max-height: 280px; padding-right: 4px;">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="glass-card" style="border-radius: 0; border-top: 1px solid var(--border-color); padding: 10px; text-align: center; font-size: 0.75rem; color: var(--text-muted);">
+        Ultimate Class Arena: No-Equipment Physical Edition • Host TV Broadcast Mode (100% Offline)
+    </footer>
+
+    <!-- ==================== LOGIC & SYNTHESIZER ENGINE ==================== -->
+    <script>
+        /* ==================== 20 PLAYER CLASS ROSTER ==================== */
+        const PLAYERS_ROSTER = [
+            "Kade Achurch", "Jacob Allen", "Brayan Aziz", "Bryson Da Silva",
+            "Jye Dickens", "Kshitij Gore", "Noah Graham", "Johnnie Green",
+            "Annabella Hogan", "Emily Huang", "Max Labib", "Floilan Magalona",
+            "Logan McNamara", "Bao Nguyen", "Jayden Patterson", "Mathew Sojan",
+            "Tyler Upston", "Martin Alexander Uy", "Mr Joy", "Tahlia Mesias"
+        ];
+
+        const DUO_COLORS = [
+            { text: "neon-text-cyan", hex: "#00f0ff" },
+            { text: "neon-text-pink", hex: "#ff007f" },
+            { text: "neon-text-purple", hex: "#a855f7" },
+            { text: "neon-text-yellow", hex: "#ffea00" },
+            { text: "neon-text-green", hex: "#00ff66" },
+            { text: "color: #f43f5e", hex: "#f43f5e" },
+            { text: "color: #6366f1", hex: "#6366f1" },
+            { text: "color: #f97316", hex: "#f97316" },
+            { text: "color: #84cc16", hex: "#84cc16" },
+            { text: "color: #0ea5e9", hex: "#0ea5e9" }
+        ];
+
+        /* APP STATE */
+        let state = {
+            players: PLAYERS_ROSTER.map(name => ({ name, score: 0, eliminated: false })),
+            duos: [],
+            currentView: 0,
+            soundEnabled: true,
+            tvMode: false,
+            distractionActive: false
+        };
+
+        let activeTimerInterval = null;
+
+        /* ==================== LOCAL WEB AUDIO SYNTHESIZER ==================== */
+        class SoundSynth {
+            constructor() { this.ctx = null; }
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+
+            playTone(freq, duration = 0.1, type = 'sine') {
+                if (!state.soundEnabled) return;
+                this.init();
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + duration);
+                } catch(e) {}
+            }
+
+            playSuccess() {
+                [523, 659, 783, 1046].forEach((f, i) => setTimeout(() => this.playTone(f, 0.15, 'triangle'), i * 70));
+            }
+
+            playBuzzer() { this.playTone(130, 0.4, 'sawtooth'); }
+            playTick() { this.playTone(850, 0.03, 'sine'); }
+
+            playAirhorn() {
+                if (!state.soundEnabled) return;
+                this.init();
+                try {
+                    [280, 370, 470].forEach(f => this.playTone(f, 0.3, 'sawtooth'));
+                } catch(e) {}
+            }
+
+            playSiren() {
+                this.init();
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(850, this.ctx.currentTime + 0.3);
+                    osc.frequency.linearRampToValueAtTime(400, this.ctx.currentTime + 0.6);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.6);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.6);
+                } catch(e) {}
+            }
+
+            playDistractionNoise() {
+                [900, 300, 1200, 400].forEach((f, i) => setTimeout(() => this.playTone(f, 0.08, 'sawtooth'), i * 50));
+            }
+        }
+        const sound = new SoundSynth();
+
+        /* ==================== CANVAS CONFETTI BURST ==================== */
+        function triggerConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#00f0ff', '#ff007f', '#a855f7', '#ffea00', '#00ff66'];
+
+            for (let i = 0; i < 110; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedY: Math.random() * 6 + 2,
+                    speedX: (Math.random() - 0.5) * 4,
+                    rotation: Math.random() * 360
+                });
+            }
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+                particles.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    p.rotation += 4;
+                    if (p.y < canvas.height) alive = true;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                if (alive) requestAnimationFrame(render);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            render();
+            sound.playSuccess();
+        }
+
+        /* ==================== TOAST & RED ALERT SIREN ==================== */
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        function triggerRedSiren() {
+            const overlay = document.getElementById('sirenOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('siren-active');
+            sound.playSiren();
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('siren-active');
+            }, 2500);
+        }
+
+        function toggleTVMode() {
+            state.tvMode = !state.tvMode;
+            document.body.classList.toggle('tv-mode', state.tvMode);
+            showToast(state.tvMode ? "TV Large Font Mode Active" : "Normal Mode Active");
+        }
+
+        function toggleAudio() {
+            state.soundEnabled = !state.soundEnabled;
+            showToast(state.soundEnabled ? "Audio Enabled" : "Audio Muted");
+        }
+
+        function toggleHostDrawer() {
+            const drawer = document.getElementById('hostDrawer');
+            const isHidden = drawer.style.transform === 'translateX(100%)' || !drawer.style.transform;
+            drawer.style.transform = isHidden ? 'translateX(0%)' : 'translateX(100%)';
+            updateHostDrawer();
+        }
+
+        /* ==================== PER-LEVEL DUO RANDOMIZER ==================== */
+        function randomizeDuosForLevel() {
+            sound.playTone(600, 0.1);
+            const activePlayers = state.players.filter(p => !p.eliminated).map(p => p.name);
+            const shuffled = [...activePlayers].sort(() => Math.random() - 0.5);
+
+            state.duos = [];
+            let duoId = 1;
+
+            while (shuffled.length > 0) {
+                if (shuffled.length === 3) {
+                    const members = [shuffled.pop(), shuffled.pop(), shuffled.pop()];
+                    const color = DUO_COLORS[(duoId - 1) % DUO_COLORS.length];
+                    state.duos.push({ id: duoId, name: `Trio ${duoId}`, members, score: 0, eliminated: false, color });
+                    break;
+                }
+                const members = [shuffled.pop()];
+                if (shuffled.length > 0) members.push(shuffled.pop());
+
+                const color = DUO_COLORS[(duoId - 1) % DUO_COLORS.length];
+                state.duos.push({ id: duoId, name: `Duo ${duoId}`, members, score: 0, eliminated: false, color });
+                duoId++;
+            }
+
+            renderDuos();
+            updateHostDrawer();
+            showToast("New Duos Randomized!");
+        }
+
+        function renderDuos() {
+            const grid = document.getElementById('duosGrid');
+            grid.innerHTML = '';
+
+            state.duos.forEach(duo => {
+                const card = document.createElement('div');
+                card.className = 'glass-card';
+                card.style.padding = '18px';
+                card.style.border = `1px solid ${duo.color.hex}60`;
+                if (duo.eliminated) card.style.opacity = '0.35';
+
+                card.innerHTML = `
+                    <div class="flex-between" style="margin-bottom: 12px;">
+                        <span class="${duo.color.text}" style="font-weight: 900; font-size: 1.1rem;">${duo.name}</span>
+                        <span style="background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 12px; font-weight: 900; font-size: 0.85rem; color: var(--yellow);">${duo.score} Pts</span>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 6px;">
+                        ${duo.members.map(m => `<div>• ${m}</div>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ==================== AUTO TIMER SYSTEM ==================== */
+        function startAutoTimer(seconds, elementId, onComplete = null) {
+            if (activeTimerInterval) clearInterval(activeTimerInterval);
+            let left = seconds;
+            const el = document.getElementById(elementId);
+            if (el) el.innerText = `${left}s`;
+
+            activeTimerInterval = setInterval(() => {
+                left--;
+                if (el) el.innerText = `${left}s`;
+                if (left <= 5 && left > 0) sound.playTick();
+
+                if (left <= 0) {
+                    clearInterval(activeTimerInterval);
+                    sound.playBuzzer();
+                    if (onComplete) onComplete();
+                }
+            }, 1000);
+        }
+
+        function stopAutoTimer() {
+            if (activeTimerInterval) {
+                clearInterval(activeTimerInterval);
+                activeTimerInterval = null;
+            }
+        }
+
+        /* ==================== NO-EQUIPMENT PHYSICAL LEVEL MODALS ==================== */
+        const PHYSICAL_LEVELS = {
+            1: {
+                title: "SYNCHRONIZED POSE MATCH",
+                setup: "NONE REQUIRED! 100% Body Motion",
+                rules: "Duo stands back-to-back. Host calls out prompt. On count of 3, both turn around and strike a pose. Points awarded if poses match perfectly!",
+                timer: "30 Seconds",
+                reward: "+20 Points"
+            },
+            2: {
+                title: "HUMAN SCULPTURE CHARADES",
+                setup: "NONE REQUIRED! Open floor space",
+                rules: "Player A physically molds Player B like a mannequin into a statue pose representing the prompt. No talking or sound effects!",
+                timer: "45 Seconds",
+                reward: "+20 Points"
+            },
+            3: {
+                title: "BACK-TO-BACK STAND UP",
+                setup: "NONE REQUIRED! Clean carpet / floor area",
+                rules: "Teammates sit back-to-back on floor, link elbows, and stand upright together without touching the floor with their hands!",
+                timer: "40 Seconds",
+                reward: "+25 Points"
+            },
+            4: {
+                title: "BALANCE STARING CONTEST",
+                setup: "NONE REQUIRED! Facing each other",
+                rules: "Balance on 1 leg while staring into partner's eyes. Host toggles TV screen distraction FX! No laughing, blinking, or foot drop!",
+                timer: "30 Seconds",
+                reward: "+30 Points"
+            },
+            5: {
+                title: "RAPID MOTION CHARADES",
+                setup: "NONE REQUIRED! Open classroom stage",
+                rules: "Act out full-body action verbs using only physical movement. Zero vocal sounds or pointing at objects allowed!",
+                timer: "45 Seconds",
+                reward: "+30 Points"
+            },
+            6: {
+                title: "RED LIGHT GREEN LIGHT SPRINT & POSE",
+                setup: "NONE REQUIRED! Classroom runway",
+                rules: "Sprint forward on GREEN LIGHT. When RED LIGHT triggers, freeze instantly in a synchronized pose with your partner!",
+                timer: "60 Seconds",
+                reward: "🏆 CHAMPION"
+            }
+        };
+        let targetLevel = 1;
+
+        function openInstructionModal(lvl) {
+            targetLevel = lvl;
+            const info = PHYSICAL_LEVELS[lvl];
+            document.getElementById('modalLevelBadge').innerText = `Level ${lvl}`;
+            document.getElementById('modalTitle').innerText = info.title;
+            document.getElementById('modalSetup').innerText = info.setup;
+            document.getElementById('modalRules').innerText = info.rules;
+            document.getElementById('modalTimer').innerText = info.timer;
+            document.getElementById('modalReward').innerText = info.reward;
+            document.getElementById('instructionModal').classList.remove('hidden');
+        }
+
+        function closeInstructionModal(start = false) {
+            document.getElementById('instructionModal').classList.add('hidden');
+            if (start) switchView(targetLevel);
+        }
+
+        function switchView(viewId) {
+            stopAutoTimer();
+            state.currentView = viewId;
+            sound.playTone(500, 0.08);
+
+            for (let i = 0; i <= 6; i++) {
+                const el = document.getElementById(`view-${i}`);
+                if (el) el.classList.add('hidden');
+            }
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            // Auto-start timers
+            if (viewId === 1) startAutoTimer(30, 'l1Timer');
+            if (viewId === 2) startAutoTimer(45, 'l2Timer');
+            if (viewId === 3) startAutoTimer(40, 'l3Timer');
+            if (viewId === 4) startAutoTimer(30, 'l4Timer');
+            if (viewId === 5) startAutoTimer(45, 'l5Timer');
+            if (viewId === 6) startAutoTimer(60, 'l6Timer');
+        }
+
+        /* ==================== LEVEL PROMPTS DATA ==================== */
+
+        // Level 1 Prompts
+        const L1_POSES = [
+            "SUPERHERO FLYING 🦸‍♂️", "ROCKSTAR GUITAR SOLO 🎸", "NINJA STEALTH ATTACK 🥷",
+            "THE MATRIX BULLET DODGE 🕶️", "SUMO WRESTLER STANCE 🤼‍♂️", "DISCO DANCER 🕺",
+            "BOXING KNOCKOUT PUNCH 🥊", "KANGAROO HOP 🦘", "SLEEPING ZOMBIE 🧟‍♂️"
+        ];
+        let l1Idx = 0;
+        function nextL1Prompt() {
+            l1Idx = (l1Idx + 1) % L1_POSES.length;
+            document.getElementById('l1PosePrompt').innerText = L1_POSES[l1Idx];
+            startAutoTimer(30, 'l1Timer');
+        }
+
+        // Level 2 Prompts
+        const L2_STATUES = [
+            "BASKETBALL SLAM DUNK 🏀", "SURFER ON A GIANT WAVE 🏄‍♂️", "RODIN'S THINKER STATUE 🗽",
+            "GUITAR HERO POWER CHORD 🎸", "CHEF KNEADING DOUGH 👨‍🍳", "ASTRONAUT SPACEWALK 👩‍🚀",
+            "SOCCER PENALTY GOALIE ⚽", "WEIGHTLIFTER BENCH PRESS 🏋️‍♂️"
+        ];
+        let l2Idx = 0;
+        function nextL2Prompt() {
+            l2Idx = (l2Idx + 1) % L2_STATUES.length;
+            document.getElementById('l2Prompt').innerText = L2_STATUES[l2Idx];
+            startAutoTimer(45, 'l2Timer');
+        }
+
+        // Level 4 Distraction FX
+        function toggleDistractionMode() {
+            const card = document.getElementById('l4Card');
+            state.distractionActive = !state.distractionActive;
+            card.classList.toggle('distraction-mode', state.distractionActive);
+            if (state.distractionActive) sound.playDistractionNoise();
+        }
+
+        // Level 5 Prompts
+        const L5_VERBS = [
+            "ESCAPING A SWARM OF ANGRY BEES 🐝", "RIDING A UNICYCLE ON A TIGHTROPE 🎪",
+            "WALKING A GIANT UNRULY DOG 🐕", "JUGGLING FLAMING TORCHES 🔥",
+            "SKIING DOWN A STEEP MOUNTAIN 🎿", "CHOPPING FIREWOOD WITH AN AXE 🪵",
+            "SWIMMING FROM A SHARK 🦈", "OPERATING A HEAVY JACKHAMMER 👷"
+        ];
+        let l5Idx = 0;
+        function nextL5Prompt() {
+            l5Idx = (l5Idx + 1) % L5_VERBS.length;
+            document.getElementById('l5VerbPrompt').innerText = L5_VERBS[l5Idx];
+            startAutoTimer(45, 'l5Timer');
+        }
+
+        // Level 6 Red Light Green Light Prompts
+        const GRAND_POSES = [
+            "FREEZE IN NINJA POSE! 🥷", "FREEZE IN FLEXING MUSCLE POSE! 🏋️",
+            "FREEZE IN FLAMINGO BALANCE! 🦩", "FREEZE IN DISCO FINGER POSE! 🕺",
+            "FREEZE IN STATUE OF LIBERTY POSE! 🗽"
+        ];
+
+        function toggleRedLight(isGreen) {
+            const box = document.getElementById('lightDisplay');
+            const txt = document.getElementById('lightText');
+            const prompt = document.getElementById('lightPosePrompt');
+
+            if (isGreen) {
+                box.style.background = "rgba(0,255,102,0.2)";
+                box.style.borderColor = "var(--green)";
+                txt.innerText = "GREEN LIGHT! SPRINT! 🟢";
+                txt.style.color = "var(--green)";
+                prompt.innerText = "(Prepare to freeze when red light flashes)";
+                sound.playTone(800, 0.2);
+            } else {
+                const randomPose = GRAND_POSES[Math.floor(Math.random() * GRAND_POSES.length)];
+                box.style.background = "rgba(239,68,68,0.2)";
+                box.style.borderColor = "var(--red)";
+                txt.innerText = "RED LIGHT! FREEZE! 🔴";
+                txt.style.color = "var(--red)";
+                prompt.innerText = randomPose;
+                sound.playBuzzer();
+            }
+        }
+
+        /* ==================== HOST DRAWER DATA ==================== */
+        function updateHostDrawer() {
+            const select = document.getElementById('hostDuoSelect');
+            const list = document.getElementById('hostLeaderboard');
+            select.innerHTML = '';
+            list.innerHTML = '';
+
+            state.duos.forEach(duo => {
+                select.innerHTML += `<option value="${duo.id}">${duo.name} (${duo.members.join(', ')})</option>`;
+                list.innerHTML += `
+                    <div style="background: #020617; border: 1px solid var(--border-color); padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                        <span style="font-weight: 800; color: #fff;">${duo.name}</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-weight: 900; color: var(--yellow);">${duo.score} Pts</span>
+                            <span style="padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; ${duo.eliminated ? 'background: rgba(239,68,68,0.2); color: var(--red);' : 'background: rgba(0,255,102,0.2); color: var(--green);'}">
+                                ${duo.eliminated ? 'ELIM' : 'ACTIVE'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function adjustDuoScore(pts) {
+            const id = parseInt(document.getElementById('hostDuoSelect').value);
+            const duo = state.duos.find(d => d.id === id);
+            if (duo) {
+                duo.score += pts;
+                renderDuos();
+                updateHostDrawer();
+            }
+        }
+
+        function toggleDuoElimination() {
+            const id = parseInt(document.getElementById('hostDuoSelect').value);
+            const duo = state.duos.find(d => d.id === id);
+            if (duo) {
+                duo.eliminated = !duo.eliminated;
+                if (duo.eliminated) triggerRedSiren();
+                renderDuos();
+                updateHostDrawer();
+            }
+        }
+
+        /* INITIALIZE ARENA */
+        window.onload = function() {
+            randomizeDuosForLevel();
+        };
+    </script>
+</body>
+</html>
